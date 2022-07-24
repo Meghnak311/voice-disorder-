@@ -1,0 +1,169 @@
+{% extends 'staff_base.html' %}
+{% load static %}
+
+{% block notification %}
+ <h3 class="card-title">KTU Notification </h3>
+        <div class="activity">
+
+                <div class="activity-item d-flex">
+
+                  <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+
+                    &nbsp;&nbsp;<b>{{ notif.data1 }}</b>
+
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data2 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data3 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+                <br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data4 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+    <br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data5 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data6 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+
+              </div>
+
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<main id="main" class="main">
+    <div class="col-lg-12">
+      <div class="pagetitle">
+        <h1>Classes</h1>
+
+      </div><!-- End Page Title -->
+
+    </div>
+            
+
+
+	<div class="row">
+
+      </div>
+
+      <!-- edit form column -->
+     <div class="card">
+
+      <div class="card-body">
+
+       <div>
+
+      <table class='table'>
+
+         
+        <thead >
+          <tr>
+            <th >SI NO</th>
+            <th>CLASS</th>
+            <th>SEMESTER</th>
+            <th>SCHEME</th>
+            <th></th>
+            <th></th>
+            <!--<th colspan="2"></th>-->
+
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in batch_data %}
+
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+              {{i.class_name}}
+            </td>
+
+            <td>
+              {{i.semester}}
+            </td>
+
+            
+            
+
+          <td>
+            {% for j in scheme_data %}
+            {% if i.scheme == j.id %}
+                {{ j.scheme }}
+
+            {% endif %}
+        {% endfor %}
+          </td>
+
+
+
+
+              <td>
+                
+                  <a href="{% url 'update_class_of_tutor' batch_id=i.id %}"><button type="button" class="btn btn-success"><i class="bi bi-eye-fill"> </i> View</button></a> 
+               
+              
+              </td>
+              <!--
+              <td>
+                
+                <a href="{% url 'university_result' batch_id=i.id %}"><button type="button" class="btn btn-primary"><i class="bi bi-eye-fill"> </i> Add Result</button></a> 
+             
+            
+            </td>-->
+
+          
+        
+        </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+       </div>
+      </div>
+
+    </div>
+
+    </div>
+    </div>
+</main>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/><br/><br/>
+
+
+
+
+
+{% endblock %}
+

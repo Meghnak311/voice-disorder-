@@ -1,0 +1,377 @@
+{% extends 'staff_base.html' %}
+{% load static %}
+
+{% block notification %}
+ <h3 class="card-title">KTU Notification </h3>
+        <div class="activity">
+
+                <div class="activity-item d-flex">
+
+                  <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+
+                    &nbsp;&nbsp;<b>{{ notif.data1 }}</b>
+
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data2 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data3 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+                <br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data4 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+    <br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data5 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data6 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+
+              </div>
+
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<main id="main" class="main">
+<div class="col-lg-6">
+    <div class="container">
+      <h2 class="card-title-size">Result Analysis</h2>
+      
+      {% for j in batch_data %}
+      <h6>Class : {{j.class_name}}</h6>
+          <h6>Date of Join : {{ j.date_of_join }}</h6>
+
+      {% endfor %}
+
+      
+      <h6>Semester : {{semester}}</h6>
+      
+
+      
+        <br/>
+    </div>
+</div>    
+<div class="row">
+  
+
+  <!-- edit form column -->
+ <div class="card">
+
+<div class="card-body">
+    <br>
+<br>
+<form method="post" class="row g-3 needs-validation" >
+    {% csrf_token %}
+      <strong><h2 style="text-align: center">University Result</h2></strong>
+
+    <br><br><br>
+    <table id='report_table' name='report_table'  class="table table-bordered table-striped" data-page-length='100'>
+        <thead>
+          <tr>
+            
+            <th>University Roll No</th>
+            <th>Name</th>
+            {% for i in subject_in_sem_id %}
+            {% for j in subject_data %}
+              {% if i.subject_id == j.id %}
+                <th>{{j.code}}</th>
+              {% endif %} 
+            
+            {% endfor %}
+            
+            {% endfor %}
+            <th>SGPA</th>
+            
+            
+            <th>Absent</th>
+
+            
+
+            <th>Arrears</th>
+            
+            
+            {% if semester > 1 %}
+            {% for k in previous_sem %}
+                 <th> Arrears in S{{k}}</th>
+            {% endfor %}
+            {% endif %}
+            
+          </tr>
+        </thead>
+        <tbody>
+
+            {% for i in student_data %}
+            
+            <tr>
+                
+                <td>{{i.university_no}}</td>
+                <td>{{i.first_name}} {{i.last_name}}</td>
+                
+                {% for sub in subject_in_sem_id %}
+                  {% for sub_data in subject_data %}
+                    {% if sub_data.id == sub.subject_id %}
+                      {% for result in result_data %}
+                      
+                        {% if result.university_no == i.university_no %}
+                          {% if result.subject_id ==  sub_data.id %}
+                          {% if result.no_of_chances == 1 %}
+                          <td>
+                          {% if result.grade_point == 10 %}
+                                            S
+                                          {% elif result.grade_point == 9 %}
+                                            A+
+                                          {% elif result.grade_point == 8.5 %}
+                                            A
+                                          {% elif result.grade_point == 8 %}
+                                            B+
+                                          {% elif result.grade_point == 7.5 %}
+                                            B
+                                          {% elif result.grade_point == 7 %}
+                                            C+
+                                          {% elif result.grade_point == 6.5 %}
+                                            C
+                                          {% elif result.grade_point == 6 %}
+                                            D
+                                          {% elif result.grade_point == 5.5 %}
+                                            P
+                                          {% elif result.grade_point == -1 %}
+                                            Ab
+                                          {% elif result.grade_point < 5.5 %}
+                                            F
+                                          {% endif %}
+
+
+                          </td>
+                          {% endif %}
+                           
+                          
+                          {% endif %}
+
+                        {% endif %}                      
+                      {% endfor %}
+
+                    {% endif %}
+
+                  {% endfor %}
+                
+                {% endfor %}
+                
+                  
+               
+                
+                <td>
+                  
+                  {% for mk_list in mark_report %}
+                   {% if i.university_no == mk_list.0 %}
+                    {{mk_list.3}}
+                   
+                   {% endif %}
+                  
+                  {% endfor %}
+
+                </td>
+            
+            <td>
+              {% for mk_list in mark_report %}
+              {% if i.university_no == mk_list.0 %}
+               {{mk_list.2}}
+              
+              {% endif %}
+             
+             {% endfor %}</td>
+
+                
+            <td>
+              {% for mk_list in mark_report %}
+              {% if i.university_no == mk_list.0 %}
+               {{mk_list.1}}
+              
+              {% endif %}
+             
+             {% endfor %}
+            </td>
+              
+            {% for prev_arrear in prev_sem_arrears %}
+              {% if prev_arrear.0 == i.university_no %}
+              {% if semester > 1 %}
+                {% for k in previous_sem %}
+                {% if prev_arrear.1 == k %}
+                <th>{{prev_arrear.2}} </th>
+                {% endif %}
+                 
+                {% endfor %}
+                {% endif %}
+              {% endif %}
+            
+            {% endfor %}
+                      
+                  
+                
+                
+              </tr>
+            
+            {% endfor %}
+          
+         
+        
+        </tbody>
+        
+      </table>
+      <br><br>
+      <h4 style="text-align: center">No of Students enrolled : {{total_students}}</h4>
+      <table id='report_table' name='report_table'  class="table table-bordered table-striped" data-page-length='100'>
+        <thead>
+          <tr>
+            
+            <th>Subject Code</th>
+            <th>Subject Name</th>
+            <th>Credit</th>
+            <th>Students Appeared</th>
+            <th>Students Passed</th>
+            <th>Students Failed </th>
+            <th>Absent</th>
+            <th>pass % by students appeared</th>
+            <th>pass % by total_students</th>
+            <th>No of s grades</th>
+
+            
+          </tr>
+        </thead>
+        <tbody>
+          
+            
+              {% for i in subject_in_sem_id %}
+              <tr>
+              {% for j in subject_data %}
+              {% if i.subject_id == j.id %}
+              <td> {{j.code}} </td>
+              <td> {{j.subject_name}} </td>
+              <td> {{j.credit}} </td>
+              <td>
+                {% for appeared in students_appeared  %}
+                  {% if appeared.0 == j.code %}
+                  {{appeared.1}}
+                  {% endif %}
+                {% endfor %}
+              </td>
+              <td>
+                {% for passed in  no_of_students_passed %}
+                  {% if passed.0 == j.code %}
+                    {{passed.1}}
+                  {% endif %}
+                {% endfor %}
+              </td>
+
+              <td>
+                {% for failed in no_of_students_failed %}
+                  {% if failed.0 == j.code %}
+                   {{failed.1}}
+                  {% endif %}
+                {% endfor %}
+              </td>
+              <td>
+                {% for absent in absent_in_each_subject %}
+                  {% if absent.0 == j.code %}
+                   {{absent.1}}
+                  {% endif %}
+                {% endfor %}
+              </td>
+              <td>
+                {% for appeared_perc in appeared_perc  %}
+                  {% if appeared_perc.0 == j.code %}
+                  
+                  {{appeared_perc.1}}
+                  {% endif %}
+                
+                {% endfor %}
+              </td>
+              <td>
+                {% for perc in pass_per_by_total %}
+                  {% if perc.0 == j.code %}
+                   {{perc.1}}
+                  {% endif %}
+                {% endfor %}
+              </td>
+
+              <td>
+                {% for o_grade in no_of_o_grade %}
+                  {% if o_grade.0 == j.code %}
+                   {{o_grade.1}}
+                  {% endif %}
+                {% endfor %}
+              </td>
+
+              {% endif %}
+
+
+              {% endfor %}
+              </tr>
+              {% endfor %}
+          
+            
+          
+         
+        
+        </tbody>
+        
+      </table>
+      
+      
+</form>
+</div>
+</div>
+</div>
+{% endblock%}
+
+{% block custom_js %}
+    <script>
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        //var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        //var dateTime = date+' '+time;
+        document.getElementById("display_date").innerHTML = date;
+
+      function total(){
+        var tds = document.getElementById('countit').getElementsByTagName('');
+            var sum = 0;
+            for(var i = 0; i < tds.length; i ++) {
+                if(tds[i].className == 'count-me') {
+                    sum += isNaN(tds[i].innerHTML) ? 0 : parseInt(tds[i].innerHTML);
+                }
+            }
+            document.getElementById('total').innerHTML +=  sum ;
+      }
+
+      $('#report_table').dataTable( {
+        "pageLength": 50
+    });
+    </script>
+{% endblock %}
+
+
+

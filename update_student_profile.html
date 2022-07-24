@@ -1,0 +1,1282 @@
+
+{% extends 'staff_base.html' %}
+{% load static %}
+{% block notification %}
+ <h3 class="card-title">KTU Notification </h3>
+        <div class="activity">
+
+                <div class="activity-item d-flex">
+
+                  <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+
+                    &nbsp;&nbsp;<b>{{ notif.data1 }}</b>
+
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data2 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data3 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+                <br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data4 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+    <br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data5 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data6 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+
+              </div>
+
+
+
+{% endblock %}
+
+{% block content %}
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Student Profile</h1>
+  </div><!-- End Page Title -->
+
+  <section class="section profile">
+    <div class="row">
+      <div class="col-xl-6" >
+
+        {% for message in messages %}
+  
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    
+                    </div>
+            
+        {% endfor %}
+          
+        
+        <div class="card">
+          <div class="card-body profile-card pt-3 d-flex flex-column align-items-center ">
+
+              {% for i in student_data %}
+            <img src="{{ student_data.photo.url }}" alt="Profile" class="rounded-circle">
+
+            <h2>{{i.first_name}} {{i.last_name}}</h2>
+            {% endfor %}
+            
+          <!-- <h3>Web Designer</h3>
+            <div class="social-links mt-2">
+              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>>
+          -->
+         
+          </div>
+          
+          
+        </div>
+
+      </div>
+
+      <div class="col-xl-12">
+
+        <div class="card">
+          <div class="card-body pt-3">
+            <!-- Bordered Tabs -->
+            <ul class="nav nav-tabs nav-tabs-bordered">
+
+              <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+              </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Feedback</button>
+              </li>
+
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#academics">Result</button>
+              </li>
+
+              <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Details</button>
+              </li>
+              
+            </ul>
+            <div class="tab-content pt-2">
+
+              <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                <!--<h5 class="card-title">About</h5>
+                <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
+                -->
+                <h5 class="card-title">Profile Details</h5>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingSix">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFheadingSix" aria-expanded="false" aria-controls="collapseFheadingSix">
+                      <strong style="color:#211e6b">Details of parents</strong>
+                    </button>
+                  </h2>
+                  <div id="collapseFheadingSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+
+                        <div class="row">
+                        <div class="col-lg-4">
+
+                          <div class="card">
+                            <div class="card-body">
+                              <h3 class="card-title"> Father's Details</h3>
+                               {% for parents_data in parents_data %}
+
+
+
+                              <!-- Default Table -->
+                              <table class="table table-bordered">
+
+                                <tbody>
+                                  <tr>
+                                    <td><b>Name</b></td>
+                                    <td>{{parents_data.fathers_name}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td><b>Occupation</b></td>
+                                    <td>{{parents_data.fathers_occupation}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td><b>Address</b></td>
+                                    <td>{{parents_data.fathers_address}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td><b>Phone number</b></td>
+                                    <td>{{parents_data.fathers_number}}</td>
+                                  </tr>
+                                <tr>
+                                    <td><b>Email ID</b></td>
+                                    <td>{{ parents_data.fathers_email_id }}</td>
+                                  </tr>
+
+                                </tbody>
+                              </table>
+                              <!-- End Default Table Example -->
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4">
+
+                          <div class="card">
+                            <div class="card-body">
+                              <h3 class="card-title">Mother's Details</h3>
+
+                              <!-- Table with stripped rows -->
+                              <table class="table table-bordered">
+
+                                <tbody>
+
+                                  <tr>
+                                    <td>
+                                      <b>Name</b>
+                                    </td>
+                                    <td>{{ parents_data.mothers_name }}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+
+                                       <b> Occupation
+                                      </b>
+                                      </td>
+                                    <td>
+                                      {{parents_data.mothers_occupation}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+
+                                        <b>Address
+                                      </b>
+                                      </td>
+                                    <td>{{parents_data.mothers_address}}</td>
+                                  </tr>
+
+                                  <tr>
+                                    <td>
+
+                                      <b>Phone Number</td>
+                                    <td>{{ parents_data.mothers_number }}</td>
+                                  </tr>
+                                 <tr>
+                                    <td>
+
+                                        <b>Email ID</b></td>
+                                    <td>{{ parents_data.mothers_email_id }}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              <!-- End Table with stripped rows -->
+
+                            </div>
+                          </div>
+                        </div>
+
+                            <div class="col-lg-4">
+
+
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+              </div><!-- End Default Accordion Example -->
+
+
+                {% endfor %}
+
+              </div>
+
+              <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+      <table class='table'>
+          {% for feedback_data in feedback_data %}
+         <tr>
+            <th style="color: darkslateblue"> Semester</th>
+            <td style="color: darkslateblue"><b>{{ feedback_data.semester }}</b></td>
+         </tr>
+         <tr>
+             <th>Is the result expected?</th>
+             <td>{{ feedback_data.expected }}</td>
+         </tr>
+              <tr>
+              <th>How was the current result?</th>
+              <td>{{ feedback_data.rating }}</td>
+              </tr>
+              <tr>
+              <th>Apply for valuation?</th>
+              <td>{{ feedback_data.revaluation }}</td>
+              </tr>
+              <tr>
+              <th>Subject Name</th>
+              <td>{{ feedback_data.revaluation_subject }}</td>
+              </tr>
+              <br>
+          {% endfor %}
+      </table>
+
+
+
+
+
+              </div>
+
+              <div class="tab-pane fade pt-3" id="profile-settings">
+
+              </div>
+
+              <div class="tab-pane fade pt-3" id="profile-change-password">
+                <!-- Change Password Form -->
+                <form method="post">
+                  {% csrf_token %}
+                {% for student_data in student_data %}
+
+
+
+                    <div class="row mb-3">
+                    <label for="fullName" class="col-md-4 col-lg-3 col-form-label" >University No</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="university_no" type="text" class="form-control" id="fullName" value="{{ student_data.university_no }}" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="fullName" class="col-md-4 col-lg-3 col-form-label" >Roll No</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="roll_no" type="text" class="form-control" id="fullName" value="{{ student_data.roll_no }}" >
+                    </div>
+                  </div>
+{% endfor %}
+                    <hr>
+                    <h4 style="text-align: center"><strong style="color:#211e6b">Parents Details</strong></h4>
+                    <hr>
+                    <br>
+                    <h5><strong style="color:#211e6b">Details of Father</strong></h5>
+                    <br>
+
+                    {% for parents_data in parents_data %}
+
+
+
+                    <div class="row mb-3">
+                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Name</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="father_name" type="text" class="form-control"  value="{{ parents_data.fathers_name }}" required>
+                    </div>
+                        </div>
+                    <div class="row mb-3">
+                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Occupation</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="father_occupation" type="text" class="form-control"  value="{{ parents_data.fathers_occupation }}" required>
+                    </div>
+                        </div>
+
+                    <div class="row mb-3">
+                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="father_address" type="text" class="form-control"  value="{{ parents_data.fathers_address }}" required>
+                    </div>
+                        </div>
+                    <div class="row mb-3">
+                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Mobile number</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="father_phn" type="text" class="form-control"  value="{{ parents_data.fathers_number }}" required>
+                    </div>
+                    </div>
+                    <div class="row mb-3">
+                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Email ID</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="father_email" type="email" class="form-control"  value="{{ parents_data.fathers_email_id }}" required>
+                    </div>
+                    </div>
+
+
+
+
+
+                    <hr>
+                    <br>
+                    <h5><strong style="color:#211e6b">Details of Mother</strong></h5>
+                    <br>
+
+                    <div class="row mb-3">
+                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Name</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="mother_name" type="text" class="form-control"  value="{{ parents_data.mothers_name }}" required>
+                    </div>
+                        </div>
+                    <div class="row mb-3">
+                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Occupation</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="mother_occupation" type="text" class="form-control"  value="{{ parents_data.mothers_occupation }}" required>
+                    </div>
+                        </div>
+
+                    <div class="row mb-3">
+                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="mother_address" type="text" class="form-control"  value="{{ parents_data.mothers_address }}" required>
+                    </div>
+                        </div>
+                    <div class="row mb-3">
+                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Mobile number</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="mother_phn" type="text" class="form-control"  value="{{ parents_data.mothers_number }}" required>
+                    </div>
+                    </div>
+                    <div class="row mb-3">
+                    <label for="Country" class="col-md-4 col-lg-3 col-form-label">Email ID</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="mother_email" type="email" class="form-control" id="Country" value="{{ parents_data.mothers_email_id }}" required>
+                    </div>
+                  </div>
+
+
+                    {% endfor %}
+                    <div class="text-center">
+                    <button type="submit" class="btn btn-primary" name="edit_profile" id="edit_profile">Save Changes</button>
+                  </div>
+                <br>
+                  <!--
+                  <div class="row mb-3">
+                    <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="current_password" type="password" class="form-control" id="currentPassword">
+                    </div>
+                  </div>-->
+
+
+                </form><!-- End Change Password Form -->
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                    <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="new_password" type="password" class="form-control" id="newPassword" required>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="renew_password" type="password" class="form-control" id="renewPassword" required>
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary" name="change_password" >Change Password</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="tab-pane fade pt-3" id="academics">
+                <!-- Academics -->
+                
+                          <!--<h5 class="card-title">Default Accordion</h5>-->
+            
+                          <!-- Default Accordion -->
+                          <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                  <strong>Semester 1</strong>
+                                </button>
+                              </h2>
+                              <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                              <div class="accordion-body">
+                                
+                                <div class="">
+                                  <table class="datatable" id="academictable">
+                                    
+                                      <thead>
+                                        <th>#</th>
+                                        <th>Code</th>
+                                        <th>Subject</th>
+
+                                        <th>University Result</th>
+                                        <th>No.of Chances</th>
+                                        <th>Credit</th>
+  
+                                      </thead>
+                                    
+                                     
+                                        <tbody>
+                                          {% for j in assign_subject_data %}
+                                  {% if  j.semester == 1 %}
+                                  <tr>
+                                    
+                                    
+                                    <td>{{ forloop.counter }}</td>
+                                    {% for i in subject_data %}
+                                    {% if j.subject_id == i.id %}
+
+                                    <td>{{i.code}}</td>
+                                    <td>{{i.subject_name}}</td>
+
+                                    
+
+
+
+                                    <td>
+                                     {% for k in sem_result_list %}
+                                      {% if k.0 == j.subject_id %}
+                                      
+                                      {% if k.3 == 10 %}
+                                            S
+                                          {% elif k.3 == 9 %}
+                                            A+
+                                          {% elif k.3 == 8.5 %}
+                                            A
+                                          {% elif k.3 == 8 %}
+                                            B+
+                                          {% elif k.3 == 7.5 %}
+                                            B
+                                          {% elif k.3 == 7 %}
+                                            C+
+                                          {% elif k.3 == 6.5 %}
+                                            C
+                                          {% elif k.3 == 6 %}
+                                            D
+                                          {% elif k.3 == 5.5 %}
+                                            P
+                                          {% elif k.3 < 5.5 %}
+                                            F
+                                          {% endif %}
+                                      {% endif %}
+                                      {% endfor %}</td>
+                                    <td>{% for k in sem_result_list %}
+                                      {% if k.0 == j.subject_id %}
+                                      {{k.4}}
+                                      {% endif %}
+                                      {% endfor %}</td>
+                                    
+                                    
+                                    
+                                    <td>{{i.credit}}</td>
+                                    {% endif %}
+                                    {% endfor %}
+                                    
+                                  </tr>
+                                  {% endif %}
+                              {% endfor %}
+                                           
+                                          
+                                          
+                                          
+                                        </tbody>
+                                        
+                                      
+
+                                  </table>
+                                </div>
+                                </div>
+
+                                </div>
+                              </div>
+                            </div>
+                            
+
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                  <strong>Semester 2</strong>
+                                </button>
+                              </h2>
+                              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                  <strong>Grade card</strong> 
+                                  <br>
+                                  <div class="">
+                                    <table class="datatable" id="academictable">
+                                      
+                                        <thead>
+                                          <th>#</th>
+                                          <th>Code</th>
+                                          <th>Subject</th>
+
+                                          <th>University Result</th>
+                                          <th>No.of Chances</th>
+                                          <th>Credit</th>
+    
+                                        </thead>
+                                      
+                                       
+                                          <tbody>
+                                            {% for j in assign_subject_data %}
+                                    {% if  j.semester == 2 %}
+                                    <tr>
+                                      
+                                      
+                                      <td>{{ forloop.counter }}</td>
+                                      {% for i in subject_data %}
+                                      {% if j.subject_id == i.id %}
+  
+                                      <td>{{i.code}}</td>
+                                      <td>{{i.subject_name}}</td>
+  
+                                      
+  
+
+  
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        
+                                        {% if k.3 == 10 %}
+                                            S
+                                          {% elif k.3 == 9 %}
+                                            A+
+                                          {% elif k.3 == 8.5 %}
+                                            A
+                                          {% elif k.3 == 8 %}
+                                            B+
+                                          {% elif k.3 == 7.5 %}
+                                            B
+                                          {% elif k.3 == 7 %}
+                                            C+
+                                          {% elif k.3 == 6.5 %}
+                                            C
+                                          {% elif k.3 == 6 %}
+                                            D
+                                          {% elif k.3 == 5.5 %}
+                                            P
+                                          {% elif k.3 < 5.5 %}
+                                            F
+                                          {% endif %}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        {{k.4}}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      
+                                      
+                                      
+                                      <td>{{i.credit}}</td>
+                                      {% endif %}
+                                      {% endfor %}
+                                      
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                             
+                                            
+                                            
+                                            
+                                          </tbody>
+                                          
+                                        
+  
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                  <strong>Semester 3</strong>
+                                </button>
+                              </h2>
+                              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                  <div class="">
+                                    <table class="datatable" id="academictable">
+                                      
+                                        <thead>
+                                          <th>#</th>
+                                          <th>Code</th>
+                                          <th>Subject</th>
+
+                                          <th>University Result</th>
+                                          <th>No.of Chances</th>
+                                          <th>Credit</th>
+    
+                                        </thead>
+                                      
+                                       
+                                          <tbody>
+                                            {% for j in assign_subject_data %}
+                                    {% if  j.semester == 3 %}
+                                    <tr>
+                                      
+                                      
+                                      <td>{{ forloop.counter }}</td>
+                                      {% for i in subject_data %}
+                                      {% if j.subject_id == i.id %}
+  
+                                      <td>{{i.code}}</td>
+                                      <td>{{i.subject_name}}</td>
+  
+                                      
+  
+
+                                      <td>
+                                      {% for w in total_mark_list %}
+                                        {% if j.subject_id == w.0 %}
+                                          {{w.3}}
+                                        
+                                        {% endif %}
+                                      {% endfor %}
+                                      </td>
+  
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        
+                                        {% if k.3 == 10 %}
+                                            S
+                                          {% elif k.3 == 9 %}
+                                            A+
+                                          {% elif k.3 == 8.5 %}
+                                            A
+                                          {% elif k.3 == 8 %}
+                                            B+
+                                          {% elif k.3 == 7.5 %}
+                                            B
+                                          {% elif k.3 == 7 %}
+                                            C+
+                                          {% elif k.3 == 6.5 %}
+                                            C
+                                          {% elif k.3 == 6 %}
+                                            D
+                                          {% elif k.3 == 5.5 %}
+                                            P
+                                          {% elif k.3 < 5.5 %}
+                                            F
+                                          {% endif %}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        {{k.4}}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      
+                                      
+                                      
+                                      <td>{{i.credit}}</td>
+                                      {% endif %}
+                                      {% endfor %}
+                                      
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                             
+                                            
+                                            
+                                            
+                                          </tbody>
+                                          
+                                        
+  
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                  <strong>Semester 4</strong>
+                                </button>
+                              </h2>
+                              <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                  <div class="">
+                                    <table class="datatable" id="academictable">
+                                      
+                                        <thead>
+                                          <th>#</th>
+                                          <th>Code</th>
+                                          <th>Subject</th>
+
+                                          <th>University Result</th>
+                                          <th>No.of Chances</th>
+                                          <th>Credit</th>
+    
+                                        </thead>
+                                      
+                                       
+                                          <tbody>
+                                            {% for j in assign_subject_data %}
+                                    {% if  j.semester == 4 %}
+                                    <tr>
+                                      
+                                      
+                                      <td>{{ forloop.counter }}</td>
+                                      {% for i in subject_data %}
+                                      {% if j.subject_id == i.id %}
+  
+                                      <td>{{i.code}}</td>
+                                      <td>{{i.subject_name}}</td>
+  
+                                      
+  
+
+  
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        
+                                        {% if k.3 == 10 %}
+                                            S
+                                          {% elif k.3 == 9 %}
+                                            A+
+                                          {% elif k.3 == 8.5 %}
+                                            A
+                                          {% elif k.3 == 8 %}
+                                            B+
+                                          {% elif k.3 == 7.5 %}
+                                            B
+                                          {% elif k.3 == 7 %}
+                                            C+
+                                          {% elif k.3 == 6.5 %}
+                                            C
+                                          {% elif k.3 == 6 %}
+                                            D
+                                          {% elif k.3 == 5.5 %}
+                                            P
+                                          {% elif k.3 < 5.5 %}
+                                            F
+                                          {% endif %}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        {{k.4}}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      
+                                      
+                                      
+                                      <td>{{i.credit}}</td>
+                                      {% endif %}
+                                      {% endfor %}
+                                      
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                             
+                                            
+                                            
+                                            
+                                          </tbody>
+                                          
+                                        
+  
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                  <strong>Semester 5</strong>
+                                </button>
+                              </h2>
+                              <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                  <div class="">
+                                    <table class="datatable" id="academictable">
+                                      
+                                        <thead>
+                                          <th>#</th>
+                                          <th>Code</th>
+                                          <th>Subject</th>
+
+                                          <th>University Result</th>
+                                          <th>No.of Chances</th>
+                                          <th>Credit</th>
+    
+                                        </thead>
+                                      
+                                       
+                                          <tbody>
+                                            {% for j in assign_subject_data %}
+                                    {% if  j.semester == 5 %}
+                                    <tr>
+                                      
+                                      
+                                      <td>{{ forloop.counter }}</td>
+                                      {% for i in subject_data %}
+                                      {% if j.subject_id == i.id %}
+  
+                                      <td>{{i.code}}</td>
+                                      <td>{{i.subject_name}}</td>
+  
+                                      
+  
+
+  
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        
+                                        {% if k.3 == 10 %}
+                                            S
+                                          {% elif k.3 == 9 %}
+                                            A+
+                                          {% elif k.3 == 8.5 %}
+                                            A
+                                          {% elif k.3 == 8 %}
+                                            B+
+                                          {% elif k.3 == 7.5 %}
+                                            B
+                                          {% elif k.3 == 7 %}
+                                            C+
+                                          {% elif k.3 == 6.5 %}
+                                            C
+                                          {% elif k.3 == 6 %}
+                                            D
+                                          {% elif k.3 == 5.5 %}
+                                            P
+                                          {% elif k.3 < 5.5 %}
+                                            F
+                                          {% endif %}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        {{k.4}}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      
+                                      
+                                      
+                                      <td>{{i.credit}}</td>
+                                      {% endif %}
+                                      {% endfor %}
+                                      
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                             
+                                            
+                                            
+                                            
+                                          </tbody>
+                                          
+                                        
+  
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingSix">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                  <strong>Semester 6</strong>
+                                </button>
+                              </h2>
+                              <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                  <div class="">
+                                    <table class="datatable" id="academictable">
+                                      
+                                        <thead>
+                                          <th>#</th>
+                                          <th>Code</th>
+                                          <th>Subject</th>
+
+                                          <th>University Result</th>
+                                          <th>No.of Chances</th>
+                                          <th>Credit</th>
+    
+                                        </thead>
+                                      
+                                       
+                                          <tbody>
+                                            {% for j in assign_subject_data %}
+                                    {% if  j.semester == 6 %}
+                                    <tr>
+                                      
+                                      
+                                      <td>{{ forloop.counter }}</td>
+                                      {% for i in subject_data %}
+                                      {% if j.subject_id == i.id %}
+  
+                                      <td>{{i.code}}</td>
+                                      <td>{{i.subject_name}}</td>
+  
+                                      
+  
+
+  
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        
+                                        {% if k.3 == 10 %}
+                                            S
+                                          {% elif k.3 == 9 %}
+                                            A+
+                                          {% elif k.3 == 8.5 %}
+                                            A
+                                          {% elif k.3 == 8 %}
+                                            B+
+                                          {% elif k.3 == 7.5 %}
+                                            B
+                                          {% elif k.3 == 7 %}
+                                            C+
+                                          {% elif k.3 == 6.5 %}
+                                            C
+                                          {% elif k.3 == 6 %}
+                                            D
+                                          {% elif k.3 == 5.5 %}
+                                            P
+                                          {% elif k.3 < 5.5 %}
+                                            F
+                                          {% endif %}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        {{k.4}}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      
+                                      
+                                      
+                                      <td>{{i.credit}}</td>
+                                      {% endif %}
+                                      {% endfor %}
+                                      
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                             
+                                            
+                                            
+                                            
+                                          </tbody>
+                                          
+                                        
+  
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingSeven">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                  <strong>Semester 7</strong>
+                                </button>
+                              </h2>
+                              <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                  <div class="">
+                                    <table class="datatable" id="academictable">
+                                      
+                                        <thead>
+                                          <th>#</th>
+                                          <th>Code</th>
+                                          <th>Subject</th>
+
+                                          <th>University Result</th>
+                                          <th>No.of Chances</th>
+                                          <th>Credit</th>
+    
+                                        </thead>
+                                      
+                                       
+                                          <tbody>
+                                            {% for j in assign_subject_data %}
+                                    {% if  j.semester == 7 %}
+                                    <tr>
+                                      
+                                      
+                                      <td>{{ forloop.counter }}</td>
+                                      {% for i in subject_data %}
+                                      {% if j.subject_id == i.id %}
+  
+                                      <td>{{i.code}}</td>
+                                      <td>{{i.subject_name}}</td>
+  
+                                      
+  
+
+                                      <td>
+                                      {% for w in total_mark_list %}
+                                        {% if j.subject_id == w.0 %}
+                                          {{w.3}}
+                                        
+                                        {% endif %}
+                                      {% endfor %}
+                                      </td>
+  
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        
+                                        {% if k.3 == 10 %}
+                                            S
+                                          {% elif k.3 == 9 %}
+                                            A+
+                                          {% elif k.3 == 8.5 %}
+                                            A
+                                          {% elif k.3 == 8 %}
+                                            B+
+                                          {% elif k.3 == 7.5 %}
+                                            B
+                                          {% elif k.3 == 7 %}
+                                            C+
+                                          {% elif k.3 == 6.5 %}
+                                            C
+                                          {% elif k.3 == 6 %}
+                                            D
+                                          {% elif k.3 == 5.5 %}
+                                            P
+                                          {% elif k.3 < 5.5 %}
+                                            F
+                                          {% endif %}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        {{k.4}}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      
+                                      
+                                      
+                                      <td>{{i.credit}}</td>
+                                      {% endif %}
+                                      {% endfor %}
+                                      
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                             
+                                            
+                                            
+                                            
+                                          </tbody>
+                                          
+                                        
+  
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingEight">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                  <strong>Semester 8</strong>
+                                </button>
+                              </h2>
+                              <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                  <div class="">
+                                    <table class="datatable" id="academictable">
+                                      
+                                        <thead>
+                                          <th>#</th>
+                                          <th>Code</th>
+                                          <th>Subject</th>
+
+                                          <th>University Result</th>
+                                          <th>No.of Chances</th>
+                                          <th>Credit</th>
+    
+                                        </thead>
+                                      
+                                       
+                                          <tbody>
+                                            {% for j in assign_subject_data %}
+                                    {% if  j.semester == 8 %}
+                                    <tr>
+                                      
+                                      
+                                      <td>{{ forloop.counter }}</td>
+                                      {% for i in subject_data %}
+                                      {% if j.subject_id == i.id %}
+  
+                                      <td>{{i.code}}</td>
+                                      <td>{{i.subject_name}}</td>
+  
+                                      
+  
+                                      <td>
+                                        {% for k in internal_mark_data %}
+                                      {% if k.semester == 8 %}
+                                      {% if k.subject_id == i.id %}
+                                        {% if k.exam_type == 'Assignment 1' %}
+                                          {{k.mark}}
+                                       
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                      </td>
+                                      
+  
+
+  
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        
+                                        {% if k.3 == 10 %}
+                                            S
+                                          {% elif k.3 == 9 %}
+                                            A+
+                                          {% elif k.3 == 8.5 %}
+                                            A
+                                          {% elif k.3 == 8 %}
+                                            B+
+                                          {% elif k.3 == 7.5 %}
+                                            B
+                                          {% elif k.3 == 7 %}
+                                            C+
+                                          {% elif k.3 == 6.5 %}
+                                            C
+                                          {% elif k.3 == 6 %}
+                                            D
+                                          {% elif k.3 == 5.5 %}
+                                            P
+                                          {% elif k.3 < 5.5 %}
+                                            F
+                                          {% endif %}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      <td>{% for k in sem_result_list %}
+                                        {% if k.0 == j.subject_id %}
+                                        {{k.4}}
+                                        {% endif %}
+                                        {% endfor %}</td>
+                                      
+                                      
+                                      
+                                      <td>{{i.credit}}</td>
+                                      {% endif %}
+                                      {% endfor %}
+                                      
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                             
+                                            
+                                            
+                                            
+                                          </tbody>
+                                          
+                                        
+  
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+
+
+                          </div><!-- End Default Accordion Example -->
+            
+                        
+            
+                
+              </div>
+
+            </div><!-- End Bordered Tabs -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+<script>
+  $(document).ready( function () {
+    $('table').dataTable({searching: false, paging: false, info: false});
+  })
+</script>
+{% endblock %}

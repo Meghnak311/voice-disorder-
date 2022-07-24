@@ -1,0 +1,159 @@
+{% extends 'staff_base.html' %}
+{% load static %}
+{% block notification %}
+ <h3 class="card-title">KTU Notification </h3>
+        <div class="activity">
+
+                <div class="activity-item d-flex">
+
+                  <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+
+                    &nbsp;&nbsp;<b>{{ notif.data1 }}</b>
+
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data2 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data3 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+                <br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data4 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+    <br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data5 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data6 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+
+              </div>
+
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<main id="main" class="main">
+<div class="col-lg-6">
+    <div class="container">
+      <h2 class="card-title-size">Add University Result</h2>
+      
+      
+      
+        <br/>
+    </div>
+</div>    
+<div class="row">
+  
+
+  <!-- edit form column -->
+ <div class="card">
+
+<div class="card-body">
+    <br>
+<form method="post" class="row g-3 needs-validation" >
+    {% csrf_token %}
+    
+    <div class="col-6">
+      <label for="yourName" class="col-sm-6 col-form-label">Month and Year of Exam</label>
+      <input type="month" name="month_and_year"  class="form-control" id="last_name"  required>
+
+    </div>
+
+    <div class="col-6">
+      <label class="col-sm-2 col-form-label">Semester</label>
+      <div class="col-sm-12">
+        <select class="form-select" name="sem" aria-label="Default select example" required>
+          
+          
+          <option value="1" selected>1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+      </div>
+      </div>
+      
+      <div class="">
+        <input type='submit' class="btn btn-primary" style="float:right"  name="select_sem_and_year" />
+    </div>
+    <br>
+    
+   
+      
+</form>
+    
+    <div>
+        <table class="table">
+        <thead>
+        <tr>
+            <th>Semester</th>
+            <th>Month</th>
+            <th>Year</th>
+        </tr>
+        </thead>
+            {% for sem_result in sem_result %}
+        <tr>
+            <td>{{ sem_result.semester }}</td>
+            <td>{{ sem_result.month }}</td>
+            <td>{{ sem_result.year }}</td>
+        </tr>
+            {% endfor %}
+        </table>
+
+
+    </div>
+    
+</div>
+</div>
+</div>
+{% endblock%}
+
+{% block custom_js %}
+    <script>
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        //var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        //var dateTime = date+' '+time;
+        document.getElementById("display_date").innerHTML = date;
+
+      function total(){
+        var tds = document.getElementById('countit').getElementsByTagName('');
+            var sum = 0;
+            for(var i = 0; i < tds.length; i ++) {
+                if(tds[i].className == 'count-me') {
+                    sum += isNaN(tds[i].innerHTML) ? 0 : parseInt(tds[i].innerHTML);
+                }
+            }
+            document.getElementById('total').innerHTML +=  sum ;
+      }
+    </script>
+{% endblock %}
