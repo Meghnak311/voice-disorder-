@@ -1,0 +1,118 @@
+{% extends 'hod_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main id="main" class="main">
+
+    <div class="col-lg-9">
+        <div class="pagetitle">
+
+            <h1>Scheme</h1>
+            <br/>
+          </div><!-- End Page Title -->
+
+	<div class="row">
+
+      </div>
+
+      <!-- edit form column -->
+     <div class="card">
+
+      <div class="card-body">
+
+<br/>
+      {% for message in messages %}
+                   <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-octagon me-1"></i>
+                {{ message }}
+              </div>
+            {% endfor %}
+
+
+
+
+      <div style="overflow-x:auto;">
+          <table class="table">
+              <br>
+              <thead>
+                <tr>
+                  <th >SI NO</th>
+                  <th>SCHEME</th>
+                  <!--<th colspan="2"></th>
+                  -->
+                  
+              </tr>
+
+              </thead>
+              <tbody>
+                
+              {% for i in scheme_data %}
+
+              <tr>
+                
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.scheme }}</td>
+                <!--
+                  <td><a href=""><button type="button" class="btn btn-outline-success btn-sm"><i class="bi bi-pencil-square"></i> Edit</button></a> </td>
+                <td><button type="button" class="btn btn-outline-danger btn-sm"  data-toggle="modal" data-target="#exampleModalCenter{{ forloop.counter }}"><i class="bi bi-trash"></i> Delete</button>
+                 
+                  <div class="modal fade" id="exampleModalCenter{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="exampleModalLongTitle"><strong>Do you want to delete ?</strong> </h4>
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          
+                          <h5 ><b>Scheme</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ i.scheme}}</h5>
+                        
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" >No</button>
+                          <a href=""><button type="submit" class="btn btn-primary" style="height: 40%;">Yes</button></a> 
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            
+                
+                
+                
+                
+                </td>
+                -->
+
+              </tr>
+
+          {% endfor %}
+              </tbody>
+
+          </table>
+      </div>
+      </div>
+
+    </div>
+
+    </div>
+    </div>
+
+</main>
+ 
+ 
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+ 
+ 
+{% endblock %}
+

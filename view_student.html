@@ -1,0 +1,148 @@
+{% extends 'hod_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main id="main" class="main">
+
+    <div class="col-lg-9">
+      <div class="pagetitle">
+
+        <h1>Students</h1>
+
+      </div><!-- End Page Title -->
+
+
+            <br/>
+
+
+	<div class="row">
+  
+      
+
+      <!-- edit form column -->
+     <div class="card">
+
+      <div class="card-body">
+        <br/>
+        
+        
+
+      </div>
+        <form method="post" class="row g-3 needs-validation" >
+            {% csrf_token %}
+
+
+           {% for message in messages %}
+                   <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+                       {{ message }}
+                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                   </div>
+           {% endfor %}
+
+           <div class="col-12">
+                     <!--<label for="yourName" class="form-label">Select Batch</label>-->
+                     <select name="batch_select" class="form-select" readonly="true" required >
+                       <option value="0">Select Batch</option>
+                       
+                       {% for i in batch %}
+                           {% for j in scheme_data %}
+                             {% if i.scheme == j.id %}
+                              {% if i.id == batch_data1.id %}
+                                  <option value="{{ i.id }}" selected>Class :  {{ i.class_name  }}  -   Date of Join : {{i.date_of_join}}    -   Sem : {{i.semester}}  - Scheme : {{j.scheme}} </option>
+                              {% else %}
+                                  <option value="{{ i.id }}">Class :  {{ i.class_name  }}  -   Date of Join : {{i.date_of_join}}    -   Sem : {{i.semester}}  - Scheme : {{j.scheme}} </option>
+
+                              {% endif %}
+                             {% endif %}
+                           {% endfor %}
+                       {% endfor %}
+
+                     </select>
+
+                   </div>
+
+                 
+<!--                    <div class="col-12">
+                     <label for="yourName" class="form-label">Batch</label>
+                     <select name="batch_year" class="form-control" readonly="true" required >
+                     <option value="0">Select Batch</option>
+                       {% for i in batch_year %}
+                         <option value="{{ i.date_of_join }}">{{i.date_of_join}}</option>
+
+                       {% endfor %}
+
+                   </div>
+-->
+
+                  <div class="col-12">
+                    <div class="col-15" style="display: inline-block">
+                      <button class="btn btn-primary w-20" type="submit">Submit</button>&nbsp;<button class="btn btn-primary w-30" type="reset">Cancel</button>
+                    </div>
+                  </div>
+                      
+                    
+           <!--     </div>
+                   <div class="col-12">
+                     <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
+                   </div>
+
+                   -->
+        </form>
+         
+       <br/>
+      <table class='table'>
+         <br>
+        <thead >
+          <tr>
+            <th >SI NO</th>
+            <th>ADMISSION NO</th>
+            <th>NAME</th>
+            <th>PHONE NUMBER</th>
+            <th>E-MAIL</th>
+
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in student_data %}
+          
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.register_no }}</td>
+            <td>{{ i.first_name }} {{i.last_name}}</td>
+            <td>{{ i.phone_no }}</td>
+            <td>{{ i.email }}</td>
+
+
+          </tr>
+          
+          {% endfor %}
+        </tbody>
+      </table>
+      
+              <br>
+              
+
+            </div>     
+      </div>
+
+    </div>
+  </div>
+    
+   
+</main>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/><br/><br/>
+
+
+
+
+  {% endblock %}
+

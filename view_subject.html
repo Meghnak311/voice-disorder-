@@ -1,0 +1,183 @@
+{% extends 'hod_base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<main id="main" class="main">
+
+    <div class="col-lg-9">
+      <div class="pagetitle">
+
+
+        </a>
+
+        <h1>Subjects</h1>
+        <br/>
+
+
+
+    </div>
+            <br/>
+
+
+	<div class="row">
+
+      </div>
+
+      <!-- edit form column -->
+     <div class="card">
+
+      <div class="card-body">
+        <br/>
+        <form method="post" class="row g-3 needs-validation" >
+            {% csrf_token %}
+
+
+           {% for message in messages %}
+                   <div class="alert alert-success alert-dismissible fade show" role="alert">
+                       {{ message }}
+                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                   </div>
+           {% endfor %}
+<br>
+           <div class="col-12">
+                     <!--<label for="yourName" class="form-label">Select Batch</label>-->
+                     <select name="scheme_id" class="form-select" readonly="true" required >
+                       <option value="0">Select Scheme</option>
+                       {% for i in scheme_data %}
+                           
+                           {% if i.id == scheme_input_id %}
+                                <option value={{ i.id }} selected>Scheme : {{i.scheme}} </option>
+                            {% else %}
+                                <option value={{ i.id }}>Scheme : {{i.scheme}} </option>
+
+                           {% endif %}
+                             
+                            
+                       {% endfor %}
+
+                     </select>
+
+                   </div>
+
+                 
+<!--                 <div class="col-12">
+                     <label for="yourName" class="form-label">Batch</label>
+                     <select name="batch_year" class="form-control" readonly="true" required >
+                     <option value="0">Select Batch</option>
+                       {% for i in batch_year %}
+                         <option value="{{ i.date_of_join }}">{{i.date_of_join}}</option>
+
+                       {% endfor %}
+
+                   </div>
+-->
+
+                   <div class="col-12">
+
+                   <div class="col-15" style="display: inline-block">
+                     <button class="btn btn-primary w-20" type="submit" name="view_subject">Submit</button>&nbsp;<button class="btn btn-primary w-30" type="reset">Cancel</button>
+
+                   </div>
+                       </div>         
+           <!--
+                   <div class="col-12">
+                     <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
+                   </div>
+
+            -->
+            </form>
+       <br/>
+       <div>
+        
+      <table class='table'>
+         <br>
+         <br>
+        <thead >
+          <tr>
+            <th >SI NO</th>
+            <th>SUBJECT CODE</th>
+            <th>SUBJECT NAME</th>
+            <th>SUBJECT CREDIT</th>
+            <th>SCHEME</th>
+            <th>FACULTY</th>
+            
+            <th>CLASS</th>
+            <!--<th colspan="2"></th>-->
+            
+
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in view_subject %}
+          
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.code }}</td>
+            <td>{{ i.subject_name }}</td>
+            <td>{{ i.credit }}</td>
+            <td>
+              {% for j in scheme_data  %}
+                {% if i.scheme == j.id %}
+                    {{ j.scheme }}
+                {% endif %}
+              {% endfor %}
+            </td>
+
+            
+            {% for s in assign_subject_data %}
+
+              {% if i.id == s.subject_id %}
+              <td>
+                {% for staff in staff_data %}
+                  {% if staff.id == s.staff_id %}
+                    {{staff.First_name}} {{staff.Last_name}}
+                  {% endif %}
+                {% endfor %}
+              </td>
+
+              <td>
+                    {% for batch in batch_data %}
+                      {% if s.batch_id == batch.id %}
+                      S{{batch.semester}} {{batch.class_name}} 
+                      {% endif %}
+                    {% endfor %}
+              </td>
+
+              {% endif %}
+
+            {% endfor %}
+          
+
+          
+            
+
+
+
+          </tr>
+          
+          {% endfor %}
+        </tbody>
+      </table>
+       </div>
+      </div>
+
+    </div>
+
+    </div>
+    </div>
+</main>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/><br/><br/>
+
+
+
+
+  {% endblock %}
+
