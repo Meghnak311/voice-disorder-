@@ -1,0 +1,170 @@
+{% extends 'student_base.html' %}
+{% load static %}
+
+{% block notification %}
+         <h3 class="card-title">KTU Notification </h3>
+        <div class="activity">
+
+                <div class="activity-item d-flex">
+
+                  <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+
+                    &nbsp;&nbsp;<b>{{ notif.data1 }}</b>
+
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data2 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data3 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+                <br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data4 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+    <br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data5 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+<br>
+                <div class="activity-item d-flex">
+
+                    <i class="bi bi-circle-fill activity-badge text-success align-self-start btn-sm"></i>
+                    &nbsp;&nbsp;<b>{{ notif.data6 }}</b>
+                  </div>
+                </div><!-- End activity item-->
+
+              </div>
+
+
+{% endblock %}
+
+{% block content %}
+ <main id="main" class="main">
+
+    <div class="col-lg-12">
+      <div class="pagetitle">
+
+        <h1>Feedback</h1>
+        <br/>
+      </div><!-- End Page Title -->
+
+    </div>
+            <br/>
+
+
+	<div class="row">
+
+
+
+      <!-- edit form column -->
+     <div class="card">
+
+      <div class="card-body">
+        <br/>
+
+
+
+      </div>
+        <form method="post" class="row g-3 needs-validation" >
+            {% csrf_token %}
+
+
+           {% for message in messages %}
+                   <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+                       {{ message }}
+                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                   </div>
+           {% endfor %}
+
+           <div class="col-12">
+                     <label for="yourName" class="form-label">Semester</label>
+                     <select name="sem" class="form-control" required>
+
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+
+
+                        </select>
+
+                   </div>
+
+
+<!--                    <div class="col-12">
+                     <label for="yourName" class="form-label">Batch</label>
+                     <select name="batch_year" class="form-control" readonly="true" required >
+                     <option value="0">Select Batch</option>
+
+                   </div>
+-->
+
+                  <div class="col-12">
+                    <div class="col-15" style="display: inline-block">
+                      <button class="btn btn-primary w-20" type="submit" name="view_feedback">Submit</button>&nbsp;<button class="btn btn-primary w-30" type="reset">Cancel</button>
+                    </div>
+                  </div>
+
+
+           <!--     </div>
+                   <div class="col-12">
+                     <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
+                   </div>
+
+                   -->
+        </form>
+
+       <br/>
+      <table class='table'>
+          {% for feedback_data in feedback_data %}
+         <tr>
+             <th>Is the result expected?</th>
+             <td>{{ feedback_data.expected }}</td>
+         </tr>
+              <tr>
+              <th>How was the current result?</th>
+              <td>{{ feedback_data.rating }}</td>
+              </tr>
+              <tr>
+              <th>Apply for valuation?</th>
+              <td>{{ feedback_data.revaluation }}</td>
+              </tr>
+              <tr>
+              <th>Subject Name</th>
+              <td>{{ feedback_data.revaluation_subject }}</td>
+              </tr>
+          {% endfor %}
+      </table>
+
+              <br>
+
+
+            </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</main>
+{% endblock %}
