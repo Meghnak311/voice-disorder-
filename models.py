@@ -1,58 +1,144 @@
-from email.policy import default
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
-
 
 # Create your models here.
 
+from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
-class batch(models.Model):
-    class_name = models.CharField(max_length=255)
-    date_of_join = models.DateField(null=True)
-    semester = models.CharField(max_length=255)
-    scheme = models.BigIntegerField(null=False)
-    tutor_id = models.BigIntegerField(null=False, default=0)
+
+class MyUserManager(BaseUserManager):
+    def create_user(self, username, first_name, last_name, password=None):
+        """
+        Creates and saves a User with the given email, date of
+        birth and password.
+        """
+        if not username:
+            raise ValueError('Users must have an email address')
+
+        user = self.model(
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            # username=self.normalize_email(email),
+            # date_of_birth=date_of_birth,
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, first_name, last_name, password=None):
+        """
+        Creates and saves a superuser with the given email, date of
+        birth and password.
+        """
+        user = self.create_user(
+            username,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            # date_of_birth=date_of_birth,
+        )
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
+
+
+class MyUser(AbstractBaseUser):
+    username = models.CharField(
+        verbose_name='username',
+        max_length=255,
+        unique=True,
+    )
+    # date_of_birth = models.DateField()
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False)
+    is_faculty = models.BooleanField(default=False)
+    is_hod = models.BooleanField(default=False)
+
+    objects = MyUserManager()
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     def __str__(self):
-        name = self.class_name + " S-" + self.semester
-        return name
+        return self.username
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        # Simplest possible answer: All admins are staff
+        return self.is_admin
 
 
-class scheme(models.Model):
-    scheme = models.CharField(max_length=255, null=False)
+from django.contrib.auth.backends import BaseBackend
+from .models import MyUser
+
+
+# from IntellerMatrix.CommonUtilities.constants import Constants
+
+
+class AuthenticationBackend(BaseBackend):
+    """
+    Authentication Backend
+    :To manage the authentication process of user
+    """
+
+    def authenticate(self, request, username=None, password=None, is_hod=None, is_faculty=None, is_student=None):
+        try:
+            user = MyUser.objects.get(username=username, is_hod=is_hod, is_faculty=is_faculty, is_student=is_student)
+        except MyUser.DoesNotExist:
+            return None
+        if user is not None and user.check_password(password):
+            if user.is_active == True:
+                return user
+        return None
+
+    def get_user(self, user_id):
+        try:
+            return MyUser.objects.get(pk=user_id)
+        except MyUser.DoesNotExist:
+            return None
+
+
+'''class User(models.Model):
+    username = models.CharField(max_length=255, unique=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    is_hod = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False)
+    is_tutor = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
 
     def __str__(self):
-        name = self.scheme
-        return name
+        category = ''
+        if self.is_staff :
+            category = 'Staff'
+        elif self.is_hod:
+            category = 'HOD'
+        elif self.is_student:
+            category = 'Student'
+        name = self.first_name +" "+ self.last_name + " - " + category
+        return name'''
 
-
-class subject(models.Model):
-    code = models.CharField(max_length=255, null=False)
-    subject_name = models.CharField(max_length=255, null=False)
-    credit = models.BigIntegerField(null=False)
-    scheme = models.BigIntegerField(null=False)
-
-    def __str__(self):
-        name = self.code + "-" + self.subject_name
-        return name
-
-
-class subject_to_staff(models.Model):
-    subject_id = models.BigIntegerField(null=False)
-    batch_id = models.BigIntegerField(null=False)
-    staff_id = models.BigIntegerField(null=False)
-    semester = models.BigIntegerField(null=False)
-
-    def __str__(self):
-        name = self.subject_id
-        return name
-
-
-class semester_result(models.Model):
-    university_no = models.CharField(max_length=255, null=False, unique=False)
-    subject_id = models.BigIntegerField(null=False)
-    grade_point = models.FloatField(null=False)
-    semester = models.BigIntegerField(null=False)
-    batch_id = models.BigIntegerField(null=False)
-    month = models.BigIntegerField(null=False)
-    year = models.BigIntegerField(null=False)
-    no_of_chances = models.BigIntegerField(null=False)
+'''class User(AbstractBaseUser):
+    is_hod = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False)
+'''
